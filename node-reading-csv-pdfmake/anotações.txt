@@ -1,0 +1,27 @@
+//================== ANOTAÇÕES
+
+	- inicializar o projeto com yarn init -y
+	
+	- adicionar dependências:
+	
+		- projeto: @prisma/client, express, multer, pdfmake;
+		
+		- desenvolvimento: typescript, ts-node-dev, tipagens do express, multer, pdfmake e prisma (para usar a CLI, quando não instalada na máquina);
+		
+	- iniciar o tsconfig: yarn tsc --init;
+	
+	- iniciar o prisma: yarn prisma init;
+	
+	- Construir base da aplicação: server.ts + routes.ts;
+	
+	- Criar rota com o multer como middleware;
+	
+	- Criar modelagem usando prisma:
+	
+		** Recomendado instalar extensão do prisma (VSCode), para ter auxilio na manipulação de arquivos .prisma;
+		
+		- Criar modelagem da tabela (Não esquecer do @@map, para definir o nome da tabela desejada);
+		
+	- rodar comando: yarn prisma migrate dev
+	
+	
