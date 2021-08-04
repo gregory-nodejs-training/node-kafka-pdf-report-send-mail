@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HTTP400Error } from "../../../exceptions/HTTP400Error";
-import { ApiUtil } from "../../../shared/utils/ApiUtil";
+import { HTTP400Error } from "@exceptions/HTTP400Error";
+import { ApiUtil } from "@utils/ApiUtil";
 import { CreateProductService } from "./CreateProductService";
 
 class CreateProductController {

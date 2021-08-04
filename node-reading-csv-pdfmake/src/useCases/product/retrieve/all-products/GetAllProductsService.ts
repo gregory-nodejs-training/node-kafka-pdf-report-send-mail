@@ -1,6 +1,6 @@
 import { Product } from "@prisma/client";
-import { client } from "../../../database/client";
-import { HTTP404Error } from "../../../exceptions/HTTP404Error";
+import { client } from "@database/client";
+import { HTTP404Error } from "@exceptions/HTTP404Error";
 
 class GetAllProductsService {
 

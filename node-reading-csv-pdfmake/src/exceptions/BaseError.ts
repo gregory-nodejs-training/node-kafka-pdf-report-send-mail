@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../enums/HttpStatusCode";
+import { HttpStatusCode } from "@sharedEntities/HttpStatusCode";
 
 class BaseError extends Error {
 

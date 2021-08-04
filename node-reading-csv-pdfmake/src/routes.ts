@@ -2,8 +2,8 @@ import { Router } from "express";
 
 import multer from "multer";
 import { CreateProductController } from "./useCases/product/create/CreateProductController";
-import { GetAllProductsController } from "./useCases/product/retrieve/GetAllProductsController";
-import { GetProductsPDFReportController } from "./useCases/product/retrieve/GetProductsPDFReportController";
+import { GetAllProductsController } from "./useCases/product/retrieve/all-products/GetAllProductsController";
+import { GetProductsPDFReportController } from "./useCases/product/retrieve/pdf-report/get-by-request/GetProductsPDFReportController";
 
 const multerConfig = multer();
 

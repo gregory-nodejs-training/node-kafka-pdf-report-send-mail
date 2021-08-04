@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "../shared/entities/HttpStatusCode";
+import { HttpStatusCode } from "@sharedEntities/HttpStatusCode";
 import { BaseError } from "./BaseError";
 
 class APIError extends BaseError {

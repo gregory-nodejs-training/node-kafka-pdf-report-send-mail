@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HTTP404Error } from "../../../exceptions/HTTP404Error";
-import { ApiUtil } from "../../../shared/utils/ApiUtil";
+import { HTTP404Error } from "@exceptions/HTTP404Error";
+import { ApiUtil } from "@utils/ApiUtil";
 import { GetAllProductsService } from "./GetAllProductsService";
 
 class GetAllProductsController {

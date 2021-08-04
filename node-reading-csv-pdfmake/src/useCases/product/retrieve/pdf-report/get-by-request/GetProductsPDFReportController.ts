@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { HTTP400Error } from "../../../exceptions/HTTP400Error";
-import { GetProductsPDFReportService } from "./GetProductsPDFReportService";
+import { HTTP400Error } from "@exceptions/HTTP400Error";
+import { GetProductsPDFReportService } from "../GetProductsPDFReportService";
 
 class GetProductsPDFReportController {
 

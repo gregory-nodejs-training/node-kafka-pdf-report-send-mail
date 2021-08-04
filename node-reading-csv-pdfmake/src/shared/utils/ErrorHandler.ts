@@ -1,4 +1,4 @@
-import { BaseError } from "../../exceptions/BaseError";
+import { BaseError } from "@exceptions/BaseError";
 import { logger } from "./Logger";
 
 class ErrorHandler {

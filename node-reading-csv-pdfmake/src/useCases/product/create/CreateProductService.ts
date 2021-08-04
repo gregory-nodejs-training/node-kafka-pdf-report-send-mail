@@ -1,9 +1,9 @@
 import { Readable } from "stream";
 
 import readline from "readline";
-import { client } from "../../../database/client";
+import { client } from "@database/client";
 import { Product } from "@prisma/client";
-import { HTTP400Error } from "../../../exceptions/HTTP400Error";
+import { HTTP400Error } from "@exceptions/HTTP400Error";
 
 interface ProductInput {
     codeBar: string,
