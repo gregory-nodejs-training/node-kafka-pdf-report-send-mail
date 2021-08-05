@@ -1,0 +1,27 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "semi": "off",
+        "@typescript-eslint/semi": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "no-undef": "off",
+        "space-before-function-paren": "off",
+        "no-array-constructor": "off",
+        "@typescript-eslint/no-array-constructor": "error"
+    }
+}

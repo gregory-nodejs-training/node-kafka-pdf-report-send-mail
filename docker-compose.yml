@@ -1,17 +1,43 @@
 version: '3'
 services: 
+    redis-master: 
+      image: 'bitnami/redis:latest'
+      ports: 
+        - "6379:6379"
+      environment:
+        - REDIS_REPLICATION_MODE=master
+        - ALLOW_EMPTY_PASSWORD=yes
+      volumes: 
+        - 'redis_data:/bitnami'
+    
+    redis-replica:
+      image: 'bitnami/redis:latest'
+      ports: 
+        - '6389:6389'
+      depends_on: 
+        - redis-master
+      environment: 
+        - REDIS_REPLICATION_MODE=slave
+        - REDIS_MASTER_HOST=redis-master
+        - REDIS_MASTER_PORT_NUMBER=6379
+        - ALLOW_EMPTY_PASSWORD=yes
+
     zookeeper:
-        image: bitnami/zookeeper:latest
-        ports: 
-            - "2181:2181"
+      image: bitnami/zookeeper:latest
+      ports: 
+        - "2181:2181"
+    
     kafka:
-        image: bitnami/kafka:latest
-        ports: 
-            - "9092:9092"
-        environment: 
-            KAFKA_ADVERTISED_HOST_NAME: localhost
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-        volumes: 
-            - /var/run/docker.sock:/var/run/docker.sock
-        depends_on: 
-            - zookeeper
+      image: bitnami/kafka:latest
+      ports: 
+        - "9092:9092"
+      environment: 
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      volumes: 
+        - /var/run/docker.sock:/var/run/docker.sock
+      depends_on: 
+        - zookeeper
+
+volumes: 
+  redis_data:
