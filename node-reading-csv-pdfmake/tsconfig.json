@@ -12,6 +12,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "outDir": "./dist",
     "paths": {
       "@exceptions/*": ["./src/exceptions/*"],
       "@database/*": ["./src/database/*"],

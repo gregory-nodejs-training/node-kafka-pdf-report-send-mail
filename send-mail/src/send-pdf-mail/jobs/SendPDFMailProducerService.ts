@@ -1,8 +1,8 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { SEND_PDF_MAIL_JOB, SEND_PDF_MAIL_QUEUE } from './constants/sendPDFMailConstants';
-import { PDFMailDTO } from './models/PDFMailDTO';
+import { SEND_PDF_MAIL_JOB, SEND_PDF_MAIL_QUEUE } from '../constants/sendPDFMailConstants';
+import { PDFMailDTO } from '../models/PDFMailDTO';
 
 @Injectable()
 class SendPDFMailProducerService {

@@ -2,8 +2,8 @@ import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import { BaseError } from '@exceptions/BaseError';
-import { ApiUtil } from '@utils/ApiUtil';
 import { errorHandler } from '@utils/ErrorHandler';
+import { ApiUtil } from '@utils/ApiUtil';
 import { router } from './routes';
 import { PRODUCER } from './kafkaConfig';
 

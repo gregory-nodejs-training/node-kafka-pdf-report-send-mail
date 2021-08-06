@@ -9,6 +9,7 @@ import { SendPDFMailConsumer } from './send-pdf-mail/jobs/SendPDFMailConsumer';
 import { SendPDFMailProducerService } from './send-pdf-mail/jobs/SendPDFMailProducerService';
 import { createBullBoard } from 'bull-board';
 import { BullAdapter } from 'bull-board/bullAdapter';
+import { SendPDFMailKafkaMessageConsumer } from './send-pdf-mail/SendPDFMailKafkaMessageConsumer';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import { BullAdapter } from 'bull-board/bullAdapter';
     }),
   ],
   controllers: [],
-  providers: [SendPDFMailProducerService, SendPDFMailConsumer],
+  providers: [SendPDFMailProducerService, SendPDFMailConsumer, SendPDFMailKafkaMessageConsumer],
 })
 export class AppModule {
   constructor(
