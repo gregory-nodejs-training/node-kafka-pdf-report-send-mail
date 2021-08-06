@@ -11,7 +11,7 @@ async function bootstrap() {
   await CONSUMER.subscribe({ topic: 'send-pdf-email' });
   await sendPDFMailKafkaMessageConsumer.watchMessages();
 
-  await app.listen(3000);
+  await app.listen(3333);
 }
 
 bootstrap();
