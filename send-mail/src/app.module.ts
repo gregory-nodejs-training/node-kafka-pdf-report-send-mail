@@ -9,7 +9,7 @@ import { SendPDFMailConsumer } from './send-pdf-mail/jobs/SendPDFMailConsumer';
 import { SendPDFMailProducerService } from './send-pdf-mail/jobs/SendPDFMailProducerService';
 import { createBullBoard } from 'bull-board';
 import { BullAdapter } from 'bull-board/bullAdapter';
-import { SendPDFMailKafkaMessageConsumer } from './send-pdf-mail/SendPDFMailKafkaMessageConsumer';
+import { SendPDFMailKafkaMessageController } from './send-pdf-mail/controllers/SendPDFMailKafkaMessageController';
 
 @Module({
   imports: [
@@ -36,8 +36,8 @@ import { SendPDFMailKafkaMessageConsumer } from './send-pdf-mail/SendPDFMailKafk
       name: SEND_PDF_MAIL_QUEUE,
     }),
   ],
-  controllers: [],
-  providers: [SendPDFMailProducerService, SendPDFMailConsumer, SendPDFMailKafkaMessageConsumer],
+  controllers: [SendPDFMailKafkaMessageController],
+  providers: [SendPDFMailProducerService, SendPDFMailConsumer],
 })
 export class AppModule {
   constructor(

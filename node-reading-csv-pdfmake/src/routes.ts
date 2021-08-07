@@ -15,10 +15,15 @@ const getAllProductsController = new GetAllProductsController();
 const getProductsPDFReportController = new GetProductsPDFReportController();
 const getProductsPDFReportByEmailController = new GetProductsPDFReportByEmailController();
 
+// INSERTS
+
 router.post('/products', multerConfig.single('file'), createProductController.handler);
+
+// RETRIEVES
+
+router.post('/products/report-by-email', getProductsPDFReportByEmailController.handler);
 
 router.get('/products', getAllProductsController.handler);
 router.get('/products/report-by-request', getProductsPDFReportController.handler);
-router.get('/products/report-by-email', getProductsPDFReportByEmailController.handler);
 
 export { router };

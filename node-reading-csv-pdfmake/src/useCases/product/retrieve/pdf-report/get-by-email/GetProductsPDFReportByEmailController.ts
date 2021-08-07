@@ -32,7 +32,7 @@ class GetProductsPDFReportByEmailController {
       text
     }, producer);
 
-    return response.json(ApiUtil.createResponseData('PDF sent by e-mail succesfully!'));
+    return response.json(ApiUtil.createResponseData('Report sent by e-mail!'));
   }
 }
 

@@ -30,7 +30,7 @@ class GetProductsPDFReportByEmailService {
       emailInfos.text
     );
 
-    await producer.send({
+    producer.send({
       topic: 'send-pdf-email',
       compression: CompressionTypes.GZIP,
       messages: [

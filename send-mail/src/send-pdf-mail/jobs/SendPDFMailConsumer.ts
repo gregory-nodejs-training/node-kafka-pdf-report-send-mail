@@ -9,18 +9,19 @@ class SendPDFMailConsumer {
   constructor(private mailService: MailerService) {}
 
   @Process(SEND_PDF_MAIL_JOB)
-  async sendMailJob(job: Job<PDFMailDTO>) {
+  async sendMailJob(job: Job<PDFMailDTO>): Promise<void> {
     const { data } = job;
-
+    const { to, from, subject, text, attachmentName, attachmentContent } = data;
     await this.mailService.sendMail({
-      to: data.to,
-      from: data.from,
-      subject: data.subject,
-      text: data.text,
+      to,
+      from,
+      subject,
+      text,
       attachments: [
         {
-          filename: data.attachmentName,
-          content: data.attachmentContent,
+          filename: attachmentName,
+          content: Buffer.from(String(attachmentContent)),
+          contentType: 'pdf',
         },
       ],
     });

@@ -31,6 +31,13 @@ app.use((request: Request, response: Response, next: NextFunction) => {
 app.use(router);
 
 async function bootstrap() {
+  // await ADMIN.connect();
+  // await ADMIN.createTopics({
+  //   waitForLeaders: true,
+  //   topics: [
+  //     { topic: 'sd' }
+  //   ]
+  // });
   await PRODUCER.connect();
   app.listen(3000, () => console.log('Server is running'));
 }

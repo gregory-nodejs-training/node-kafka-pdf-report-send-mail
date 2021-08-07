@@ -8,7 +8,7 @@ import { PDFMailDTO } from '../models/PDFMailDTO';
 class SendPDFMailProducerService {
   constructor(@InjectQueue(SEND_PDF_MAIL_QUEUE) private queue: Queue) {}
 
-  async sendMail(pdfMailDTO: PDFMailDTO) {
+  async sendMail(pdfMailDTO: PDFMailDTO): Promise<void> {
     await this.queue.add(SEND_PDF_MAIL_JOB, pdfMailDTO, {
       attempts: 3,
     });
