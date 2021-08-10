@@ -11,6 +11,12 @@ const app = express();
 
 app.use(express.json());
 
+app.use((request: Request, response: Response, next: NextFunction) => {
+  request.producer = PRODUCER;
+
+  return next();
+});
+
 app.use(async (err: Error, request: Request, response: Response, next: NextFunction) => {
   await errorHandler.handleError(err);
   if (!errorHandler.isTrustedError(err)) {
@@ -22,22 +28,9 @@ app.use(async (err: Error, request: Request, response: Response, next: NextFunct
   return next(err);
 });
 
-app.use((request: Request, response: Response, next: NextFunction) => {
-  request.producer = PRODUCER;
-
-  return next();
-});
-
 app.use(router);
 
 async function bootstrap() {
-  // await ADMIN.connect();
-  // await ADMIN.createTopics({
-  //   waitForLeaders: true,
-  //   topics: [
-  //     { topic: 'sd' }
-  //   ]
-  // });
   await PRODUCER.connect();
   app.listen(3000, () => console.log('Server is running'));
 }

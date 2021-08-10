@@ -1,6 +1,8 @@
 class PDFMailDTO {
   to!: string;
+  nameTo?: string;
   from!: string;
+  nameFrom?: string;
   subject!: string;
   text?: string;
   attachmentName!: string;
@@ -12,10 +14,14 @@ class PDFMailDTO {
     subject: string,
     attachmentName: string,
     attachmentContent: any,
-    text?: string
+    text?: string,
+    nameTo?: string,
+    nameFrom?: string
   ) {
     this.to = to;
+    this.nameTo = nameTo;
     this.from = from;
+    this.nameFrom = nameFrom;
     this.subject = subject;
     this.text = text;
     this.attachmentName = attachmentName;

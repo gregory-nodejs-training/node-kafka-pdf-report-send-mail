@@ -1,10 +1,28 @@
+import { HTTP400Error } from '@exceptions/HTTP400Error';
+import { IsEmail, IsNotEmpty, validateOrReject } from 'class-validator';
+
 class PDFMailDTO {
-  to!: string;
-  from!: string;
-  subject!: string;
+  @IsEmail()
+  @IsNotEmpty()
+  to: string;
+
+  nameTo?: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  from: string;
+
+  nameFrom?: string;
+
+  @IsNotEmpty()
+  subject: string;
+
   text?: string;
-  attachmentName!: string;
-  attachmentContent!: any;
+
+  @IsNotEmpty()
+  attachmentName: string;
+
+  attachmentContent: any;
 
   constructor(
     to: string,
@@ -12,10 +30,14 @@ class PDFMailDTO {
     subject: string,
     attachmentName: string,
     attachmentContent: any,
-    text?: string
+    text?: string,
+    nameTo?: string,
+    nameFrom?: string
   ) {
     this.to = to;
+    this.nameTo = nameTo;
     this.from = from;
+    this.nameFrom = nameFrom;
     this.subject = subject;
     this.text = text;
     this.attachmentName = attachmentName;
@@ -23,4 +45,12 @@ class PDFMailDTO {
   }
 }
 
-export { PDFMailDTO };
+async function validateOrRejectPDFMail(pdfMailDTO: PDFMailDTO) {
+  try {
+    await validateOrReject(pdfMailDTO);
+  } catch (errors) {
+    throw new HTTP400Error(`Caught promise rejection (validation failed).\n Errors: ${errors}`);
+  }
+}
+
+export { PDFMailDTO, validateOrRejectPDFMail };

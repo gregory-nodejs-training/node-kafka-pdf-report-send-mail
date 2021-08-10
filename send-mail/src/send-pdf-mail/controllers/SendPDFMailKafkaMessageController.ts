@@ -10,7 +10,8 @@ export class SendPDFMailKafkaMessageController {
   @MessagePattern('send-pdf-email')
   async watchMessages(@Payload() message: any, @Ctx() context: KafkaContext): Promise<void> {
     this.logInfos(context);
-    const { to, from, subject, attachmentName, attachmentContent, text } = message.value;
+    const { to, nameTo, from, nameFrom, subject, attachmentName, attachmentContent, text } =
+      message.value;
 
     await this.execute({
       to,
@@ -19,12 +20,14 @@ export class SendPDFMailKafkaMessageController {
       attachmentName,
       attachmentContent,
       text,
+      nameTo,
+      nameFrom,
     });
   }
 
   private logInfos(context: KafkaContext) {
     const { offset, timestamp, key, value } = context.getMessage();
-    const prefix = `${context.getTopic()}[${context.getPartition()} | ${offset}] / ${timestamp}`;
+    const prefix = `${context.getTopic()} [${context.getPartition()} | ${offset}] / ${timestamp}`;
     console.log(`- ${prefix} ${key}#${value}`);
   }
 

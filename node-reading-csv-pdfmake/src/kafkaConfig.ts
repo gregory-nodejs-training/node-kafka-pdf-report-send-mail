@@ -11,6 +11,5 @@ const KAFKA_INSTANCE = new Kafka({
 });
 
 const PRODUCER = KAFKA_INSTANCE.producer();
-// const ADMIN = KAFKA_INSTANCE.admin();
 
 export { PRODUCER };
