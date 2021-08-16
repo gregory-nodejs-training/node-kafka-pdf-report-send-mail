@@ -13,7 +13,7 @@ class SendPDFMailConsumer {
   async sendMailJob(job: Job<PDFMailDTO>): Promise<void> {
     const { data } = job;
     const { to, nameTo, from, nameFrom, subject, text, attachmentName, attachmentContent } = data;
-    console.log(data);
+
     await this.mailService.sendMail({
       to: this.composeAddress(to, nameTo),
       from: this.composeAddress(from, nameFrom),
