@@ -1,5 +1,4 @@
-import { HTTP400Error } from '@exceptions/HTTP400Error';
-import { IsEmail, IsNotEmpty, validateOrReject } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 class PDFMailDTO {
   @IsEmail()
@@ -45,12 +44,4 @@ class PDFMailDTO {
   }
 }
 
-async function validateOrRejectPDFMail(pdfMailDTO: PDFMailDTO) {
-  try {
-    await validateOrReject(pdfMailDTO);
-  } catch (errors) {
-    throw new HTTP400Error(`Caught promise rejection (validation failed).\n Errors: ${errors}`);
-  }
-}
-
-export { PDFMailDTO, validateOrRejectPDFMail };
+export { PDFMailDTO };

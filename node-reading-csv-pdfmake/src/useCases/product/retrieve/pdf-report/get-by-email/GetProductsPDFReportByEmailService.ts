@@ -1,7 +1,8 @@
 import { HTTP400Error } from '@exceptions/HTTP400Error';
+import { Validators } from '@utils/Validators';
 import { CompressionTypes, Producer } from 'kafkajs';
 import { GetProductsPDFReportService } from '../GetProductsPDFReportService';
-import { PDFMailDTO, validateOrRejectPDFMail } from './models/PDFMailDTO';
+import { PDFMailDTO } from './models/PDFMailDTO';
 
 interface IEmailInfos {
   to: string;
@@ -34,7 +35,7 @@ class GetProductsPDFReportByEmailService {
       emailInfos.nameFrom
     );
 
-    await validateOrRejectPDFMail(pdfMailDTO);
+    await Validators.validateObject<PDFMailDTO>(pdfMailDTO);
 
     producer.send({
       topic: 'send-pdf-email',
