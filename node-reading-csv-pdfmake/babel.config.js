@@ -18,7 +18,8 @@ module.exports = {
         '@sharedEntities': './src/shared/entities',
         '@utils': './src/shared/utils'
       }
-    }]
+    }],
+    ['@babel/plugin-proposal-decorators', { legacy: true }]
   ],
   ignore: [
     '**/*.spec.ts'
