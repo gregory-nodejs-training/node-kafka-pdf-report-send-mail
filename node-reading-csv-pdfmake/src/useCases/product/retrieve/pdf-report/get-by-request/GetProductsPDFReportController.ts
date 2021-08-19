@@ -3,10 +3,9 @@ import { HTTP400Error } from '@exceptions/HTTP400Error';
 import { GetProductsPDFReportService } from '../GetProductsPDFReportService';
 
 class GetProductsPDFReportController {
+  constructor(private getProductsPDFReportService: GetProductsPDFReportService) {}
   async handler(request: Request, response: Response) {
-    const getProductsPDFReportService = new GetProductsPDFReportService();
-
-    const pdfReport = await getProductsPDFReportService.execute();
+    const pdfReport = await this.getProductsPDFReportService.execute();
 
     if (!pdfReport) {
       throw new HTTP400Error("Can't generate PDF!");

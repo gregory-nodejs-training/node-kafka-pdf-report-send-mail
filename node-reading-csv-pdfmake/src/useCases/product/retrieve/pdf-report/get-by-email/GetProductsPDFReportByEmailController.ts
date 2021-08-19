@@ -5,12 +5,13 @@ import { Request, Response } from 'express';
 import { GetProductsPDFReportByEmailService } from './GetProductsPDFReportByEmailService';
 
 class GetProductsPDFReportByEmailController {
+  constructor(private getProductsPDFReportByEmailService: GetProductsPDFReportByEmailService) {}
+
   async handler(request: Request, response: Response) {
-    const getProductsPDFReportByEmailService = new GetProductsPDFReportByEmailService();
+    const { body, producer } = request;
     const {
       to, nameTo, from, nameFrom, subject, attachmentName, text
-    } = request.body;
-    const { producer } = request;
+    } = body;
 
     if (!producer) {
       throw new BaseError('Internal server error',
@@ -19,7 +20,7 @@ class GetProductsPDFReportByEmailController {
         false);
     }
 
-    await getProductsPDFReportByEmailService.execute({
+    await this.getProductsPDFReportByEmailService.execute({
       to,
       nameTo,
       from,

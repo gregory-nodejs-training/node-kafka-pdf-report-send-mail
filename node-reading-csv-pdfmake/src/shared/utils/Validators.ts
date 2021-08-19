@@ -2,7 +2,7 @@ import { HTTP400Error } from '@exceptions/HTTP400Error';
 import { validateOrReject } from 'class-validator';
 
 class Validators {
-  static async validateObject<T extends Object>(t: T) {
+  static async validateObject<T extends Object>(t: T): Promise<void> {
     try {
       await validateOrReject(t);
     } catch (errors) {

@@ -15,15 +15,23 @@ interface IEmailInfos {
 }
 
 class GetProductsPDFReportByEmailService {
-  async execute(emailInfos: IEmailInfos, producer: Producer) : Promise<void> {
-    const getProductsPDFReportService = new GetProductsPDFReportService();
+  constructor(private getProductsPDFReportService: GetProductsPDFReportService) {}
 
-    const pdfReport = await getProductsPDFReportService.execute();
+  async execute(emailInfos: IEmailInfos, producer: Producer) : Promise<void> {
+    const pdfReport = await this.getProductsPDFReportService.execute();
 
     if (!pdfReport) {
       throw new HTTP400Error("Can't generate PDF!");
     }
 
+    await this.validateMailInfosSendTopicMessage(emailInfos, pdfReport, producer);
+  }
+
+  private async validateMailInfosSendTopicMessage(
+    emailInfos: IEmailInfos,
+    pdfReport: Buffer,
+    producer: Producer
+  ): Promise<void> {
     const pdfMailDTO = new PDFMailDTO(
       emailInfos.to,
       emailInfos.from,
@@ -37,12 +45,18 @@ class GetProductsPDFReportByEmailService {
 
     await Validators.validateObject<PDFMailDTO>(pdfMailDTO);
 
-    producer.send({
+    this.sendMessage(pdfMailDTO, producer);
+  }
+
+  private async sendMessage(pdfMailDTO: PDFMailDTO, producer: Producer) : Promise<void> {
+    await producer.send({
       topic: 'send-pdf-email',
       compression: CompressionTypes.GZIP,
       messages: [
         { value: JSON.stringify(pdfMailDTO) }
       ]
+    }).catch(err => {
+      throw new HTTP400Error(`Error sending order to send e-mail: ${err}`);
     });
   }
 }

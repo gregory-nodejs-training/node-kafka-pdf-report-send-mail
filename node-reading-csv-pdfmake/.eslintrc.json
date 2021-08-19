@@ -22,6 +22,8 @@
         "no-undef": "off",
         "space-before-function-paren": "off",
         "no-array-constructor": "off",
-        "@typescript-eslint/no-array-constructor": "error"
+        "@typescript-eslint/no-array-constructor": "error",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": ["error"]
     }
 }

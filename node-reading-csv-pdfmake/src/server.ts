@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
+import cors from 'cors';
+
 import { BaseError } from '@exceptions/BaseError';
 import { errorHandler } from '@utils/ErrorHandler';
 import { ApiUtil } from '@utils/ApiUtil';
@@ -9,6 +11,8 @@ import { PRODUCER } from './kafkaConfig';
 
 // ORDER IS STRICTLY NECESSARY THIS WAY!
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -27,7 +31,7 @@ app.use(async (err: Error, request: Request, response: Response, next: NextFunct
   await errorHandler.handleError(err);
   if (!errorHandler.isTrustedError(err)) {
     response.status(500)
-      .json(ApiUtil.createResponseError('Internal Server Error'));
+      .json(ApiUtil.createResponseError(`Internal Server Error: ${err}`));
   }
   response.status((err as BaseError).httpCode)
     .json(ApiUtil.createResponseError(err.message));

@@ -1,19 +1,14 @@
 import { Readable } from 'stream';
 
 import readline from 'readline';
-import { client } from '@database/client';
 import { Product } from '@prisma/client';
-import { HTTP400Error } from '@exceptions/HTTP400Error';
-
-interface ProductInput {
-    codeBar: string,
-    description: string,
-    price: number,
-    quantity: number
-}
+import { CreateProduct } from '../models/CreateProduct';
+import { ProductRepository } from '../ProductRepository';
 
 class CreateProductService {
-  async execute(worksheet: Buffer) : Promise<Product[]> {
+  constructor(private productRepository: ProductRepository) {}
+
+  async execute(worksheet: Buffer, userId: string): Promise<Product[]> {
     const productsLine = this.createReadline(worksheet);
 
     const products: Product[] = [];
@@ -26,9 +21,8 @@ class CreateProductService {
 
       if (price && quantity) {
         if (!await this.verifyProductExists(codeBar)) {
-          const product = await this.createProduct({
-            codeBar, description, price, quantity
-          });
+          const productCreate = new CreateProduct(codeBar, description, price, quantity, userId);
+          const product = await this.createProduct(productCreate);
           products.push(product);
         }
       }
@@ -46,35 +40,12 @@ class CreateProductService {
     });
   }
 
-  private async verifyProductExists(codeBar: string): Promise<Product | null> {
-    return await client.product.findFirst({
-      where: {
-        codeBar
-      }
-    });
+  private async verifyProductExists(codeBar: string): Promise<boolean> {
+    return await this.productRepository.exists(codeBar);
   }
 
-  private async createProduct({
-    codeBar, description, price, quantity
-  }: ProductInput) : Promise<Product> {
-    const product = await client.product.create({
-      data: {
-        codeBar,
-        description,
-        price,
-        quantity
-      },
-      select: {
-        id: true,
-        codeBar: true,
-        description: true,
-        price: true,
-        quantity: true
-      }
-    });
-    if (!product) {
-      throw new HTTP400Error('Error creating product.');
-    }
+  private async createProduct(productCreate: CreateProduct) : Promise<Product> {
+    const product = await this.productRepository.create(productCreate);
     return product;
   }
 }

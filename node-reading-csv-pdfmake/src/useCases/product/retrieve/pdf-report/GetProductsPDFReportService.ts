@@ -1,10 +1,10 @@
 import {
   Column, StyleDictionary, TableCell, TDocumentDefinitions
 } from 'pdfmake/interfaces';
-import { client } from '@database/client';
 import { HTTP400Error } from '@exceptions/HTTP400Error';
 import { PDFMaker } from '@utils/PDFMaker';
 import { Product } from '.prisma/client';
+import { ProductRepository } from '../../ProductRepository';
 
 const PDFHeader: Column[] = [
   { text: 'Relatório de Produtos', style: 'header' },
@@ -44,8 +44,10 @@ const predefinedStyles: StyleDictionary = {
 };
 
 class GetProductsPDFReportService {
+  constructor(private productRepository: ProductRepository) {}
+
   async execute() : Promise<Buffer> {
-    const products = await client.product.findMany();
+    const products = await this.productRepository.listAll();
     if (!products) {
       throw new HTTP400Error('No products to generate PDF Report.');
     }

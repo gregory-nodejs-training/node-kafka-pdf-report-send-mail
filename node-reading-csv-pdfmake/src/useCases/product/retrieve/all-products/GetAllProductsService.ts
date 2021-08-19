@@ -1,15 +1,11 @@
 import { Product } from '@prisma/client';
-import { client } from '@database/client';
-import { HTTP404Error } from '@exceptions/HTTP404Error';
+import { ProductRepository } from '../../ProductRepository';
 
 class GetAllProductsService {
-  async execute() : Promise<Product[]> {
-    const products = await client.product.findMany();
+  constructor(private productRepository: ProductRepository) {}
 
-    if (!products) {
-      throw new HTTP404Error('Products not found.');
-    }
-
+  async execute(): Promise<Product[]> {
+    const products = await this.productRepository.listAll();
     return products;
   }
 }
