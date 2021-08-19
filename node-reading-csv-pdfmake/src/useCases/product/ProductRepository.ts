@@ -25,7 +25,11 @@ class ProductRepository implements IRepository<CreateProduct, Product> {
   }
 
   async listAll(): Promise<Product[]> {
-    const products = await client.product.findMany();
+    const products = await client.product.findMany({
+      include: {
+        user: true
+      }
+    });
 
     if (!products) {
       throw new HTTP400Error('Products not found.');
