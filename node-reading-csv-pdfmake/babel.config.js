@@ -16,6 +16,7 @@ module.exports = {
         '@exceptions': './src/exceptions',
         '@database': './src/database',
         '@sharedEntities': './src/shared/entities',
+        '@middlewares': './src/shared/middlewares',
         '@utils': './src/shared/utils'
       }
     }],
